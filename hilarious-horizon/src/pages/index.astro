@@ -17,3 +17,31 @@ const desc = "Astro Labday page";
     unde!
   </p>
 </Layout>
+
+<style>
+  h2 {
+    font-size: 40px;
+    margin-bottom: 2rem;
+  }
+  h3 {
+    font-size: 50px;
+  }
+  p {
+    margin-top: 2rem;
+  }
+</style>
+
+<script>
+  import { gsap } from "gsap";
+
+  const h3Timeline = gsap.timeline({
+    repeat: 3,
+  });
+
+  gsap.from("h3", { duration: 1, x: "-100vw" });
+  h3Timeline
+    .to("h3", { color: "#b01515", duration: 0.5 })
+    .to("h3", { color: "#248232", duration: 0.5 })
+    .to("h3", { color: "#ffcf33", duration: 0.5 });
+  // gsap.to("h3", { duration: 0.5, color: "#191919" });
+</script>
