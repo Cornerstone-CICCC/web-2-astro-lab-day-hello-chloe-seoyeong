@@ -1,0 +1,38 @@
+---
+import type { GetStaticPaths } from "astro";
+import Layout from "../../layouts/Layout.astro";
+import { getCollection, render } from "astro:content";
+
+export async function getStaticPaths() {
+  const posts = await getCollection("projects");
+
+  return posts.map((post) => ({
+    params: { id: post.id },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+
+const title = `${post.data.title} | Projects`;
+const desc = `${post.data.title} page of Projects`;
+---
+
+<Layout pageTitle={title} pageDesc={desc} detailPage="projects">
+  <h2>
+    <p>{post.data.title}</p>
+  </h2>
+  <p>{post.data.author}</p>
+  <Content />
+</Layout>
+
+<style>
+  h2 {
+    margin-bottom: 1rem;
+  }
+  p {
+    margin-bottom: 2rem;
+    text-align: center;
+  }
+</style>

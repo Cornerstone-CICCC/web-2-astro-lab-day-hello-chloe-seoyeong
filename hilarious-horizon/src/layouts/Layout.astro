@@ -2,6 +2,8 @@
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import "./../styles/global.css";
+
+const { pageTitle, pageDesc, detailPage } = Astro.props;
 ---
 
 <!doctype html>
@@ -9,12 +11,20 @@ import "./../styles/global.css";
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>{pageTitle}</title>
+    <meta name="description" content={pageDesc} />
   </head>
   <body>
     <div class="container">
       <Header />
       <main>
+        {
+          detailPage && (
+            <a class="link-back" href={`/${detailPage}`}>
+              Back to {`${detailPage}`}
+            </a>
+          )
+        }
         <slot />
       </main>
       <Footer />
@@ -25,5 +35,9 @@ import "./../styles/global.css";
 <style>
   main {
     padding: 3rem 1rem;
+    a.link-back {
+      margin-bottom: 2rem;
+      display: inline-block;
+    }
   }
 </style>

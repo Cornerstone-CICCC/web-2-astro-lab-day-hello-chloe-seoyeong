@@ -1,0 +1,47 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import { getCollection } from "astro:content";
+
+const posts = await getCollection("blog");
+const title = "Blog";
+const desc = "Blog pages";
+---
+
+<Layout pageTitle={title} pageDesc={desc}>
+  <h2>Blog</h2>
+
+  <ul>
+    {
+      posts.map((post) => (
+        <li>
+          <h3>
+            <a href={`/blog/${post.id}`}>{post.data.title}</a>
+          </h3>
+          <p>Written by {post.data.author}</p>
+          <em>Published {post.data.date}</em>
+        </li>
+      ))
+    }
+  </ul>
+</Layout>
+
+<style>
+  li {
+    list-style: none;
+    margin-bottom: 1rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #191919;
+    &:last-child {
+      border-bottom: 0;
+    }
+    em {
+      font-size: 13px;
+    }
+  }
+  h3 {
+    margin-bottom: 0.5rem;
+    a {
+      color: #191919;
+    }
+  }
+</style>
